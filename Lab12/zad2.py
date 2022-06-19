@@ -4,15 +4,29 @@ from matplotlib.animation import FuncAnimation
 
 plt.rcParams["figure.figsize"] = (20, 10)
 
-A = array([[1.2, 1.4], [0.8, -1.3], [-0.9, -1.1], [-1.2, 1]])
+A = array([[1.2, 1.4],
+           [0.8, -1.3],
+           [-0.9, -1.1],
+           [-1.2, 1]])
 
 fig, ax = plt.subplots(1, 3)
 
 
 def animate(i):
-    rotMatrix = array([[cos(radians(i)), -sin(radians(i))], [sin(radians(i)), cos(radians(i))]])
-    stretchXmatrix = array([[1 + 0.01*i, 0], [0, 1]])
-    leanMatrix = array([[1, 0], [i*0.01, 1]])
+    rotMatrix = array([
+        [cos(radians(i)), -sin(radians(i))],
+        [sin(radians(i)), cos(radians(i))]
+    ])
+
+    stretchXmatrix = array([
+        [1 + 0.01*i, 0],
+        [0, 1]
+    ])
+
+    leanMatrix = array([
+        [1, 0],
+        [i*0.01, 1]
+    ])
 
     transformedMatrixes = [A@rotMatrix, A@stretchXmatrix, A@leanMatrix]
     titles = ['Obracanie figury', 'Rozciaganie figury', 'Pochylanie figury']
@@ -27,5 +41,5 @@ def animate(i):
     plt.draw()
 
 
-ani = FuncAnimation(fig, animate, frames=360, interval=50, repeat=True)
+ani = FuncAnimation(fig, animate, frames=360, interval=20, repeat=True)
 plt.show()
